@@ -8,8 +8,16 @@ export const useZoomAndPan = () => {
 
   const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
     e.preventDefault();
+    const mouseX = e.clientX - e.currentTarget.offsetLeft;
+    const mouseY = e.clientY - e.currentTarget.offsetTop;
     const newScale = scale * (1 - e.deltaY * 0.001);
+    const scaleFactor = newScale / scale;
+
     setScale(Math.max(0.1, Math.min(newScale, 10)));
+    setOffset({
+      x: mouseX - (mouseX - offset.x) * scaleFactor,
+      y: mouseY - (mouseY - offset.y) * scaleFactor,
+    });
   };
 
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
