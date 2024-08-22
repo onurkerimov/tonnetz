@@ -18,6 +18,32 @@ export const drawCircles = (
   const startRow = Math.floor(-offset.y / (scale * verticalSpacing)) - 1;
   const endRow = startRow + Math.ceil(canvas.height / (scale * verticalSpacing)) + 2;
 
+  // Draw lines first
+  for (let row = startRow; row < endRow; row++) {
+    for (let col = startCol; col < endCol; col++) {
+      const x = col * horizontalSpacing + (row % 2 === 0 ? 0 : horizontalSpacing / 2);
+      const y = row * verticalSpacing;
+
+      ctx.strokeStyle = 'rgba(0, 0, 0)';
+      ctx.lineWidth = 6;
+
+      // Connect to the circle on the right
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + horizontalSpacing, y);
+      ctx.stroke();
+
+      // Connect to the two circles below
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x - horizontalSpacing / 2, y + verticalSpacing);
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + horizontalSpacing / 2, y + verticalSpacing);
+      ctx.stroke();
+    }
+  }
+
+  // Draw circles
   for (let row = startRow; row < endRow; row++) {
     for (let col = startCol; col < endCol; col++) {
       const x = col * horizontalSpacing + (row % 2 === 0 ? 0 : horizontalSpacing / 2);

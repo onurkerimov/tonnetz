@@ -4,7 +4,15 @@ import { useZoomAndPan } from './hooks/useZoomAndPan';
 
 const ToneCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { scale, offset, handleWheel, handleMouseDown, handleMouseMove, handleMouseUp, isDragging } = useZoomAndPan();
+  const { 
+    scale, 
+    offset, 
+    handleWheel, 
+    handleMouseDown, 
+    handleMouseMove, 
+    handleMouseUp, 
+    isDragging 
+  } = useZoomAndPan();
 
   useCanvasSetup(canvasRef, scale, offset);
 
@@ -16,7 +24,7 @@ const ToneCanvas: React.FC = () => {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      style={{ width: '100%', height: '100vh', cursor: isDragging ? 'grabbing' : 'grab' }}
+      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     />
   );
 };
