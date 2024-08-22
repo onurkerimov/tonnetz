@@ -10,8 +10,8 @@ export const drawCircles = (
   ctx.scale(scale, scale);
 
   const radius = 20;
-  const horizontalSpacing = radius * Math.sqrt(3);
-  const verticalSpacing = radius * 1.5;
+  const horizontalSpacing = 2 * radius * Math.sqrt(3);
+  const verticalSpacing = radius * 3;
 
   const startCol = Math.floor(-offset.x / (scale * horizontalSpacing)) - 1;
   const endCol = startCol + Math.ceil(canvas.width / (scale * horizontalSpacing)) + 2;

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Demo from './Demo';
+import ToneCanvas from './ToneCanvas';
 
 const meta = {
-  component: Demo,
-} satisfies Meta<typeof Demo>;
+  component: ToneCanvas,
+} satisfies Meta<typeof ToneCanvas>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
