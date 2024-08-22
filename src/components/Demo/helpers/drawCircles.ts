@@ -1,3 +1,5 @@
+const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
+
 export const drawCircles = (
   ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
@@ -53,6 +55,15 @@ export const drawCircles = (
       ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fillStyle = `hsl(${Math.abs((x + y) * 10) % 360}, 70%, 50%)`;
       ctx.fill();
+
+      // Add note name
+      const noteIndex = ((row % 4) * 3 + col) % 12;
+      const noteName = tonnetzNotes[noteIndex];
+      ctx.fillStyle = 'black';
+      ctx.font = '16px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(noteName, x, y);
     }
   }
 
