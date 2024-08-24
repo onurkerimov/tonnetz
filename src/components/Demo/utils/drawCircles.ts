@@ -1,3 +1,5 @@
+// const notes = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+
 const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
 
 export const drawCircles = (
@@ -26,8 +28,8 @@ export const drawCircles = (
       const x = col * horizontalSpacing + (row % 2 === 0 ? 0 : horizontalSpacing / 2);
       const y = row * verticalSpacing;
 
-      ctx.strokeStyle = 'rgba(0, 0, 0)';
-      ctx.lineWidth = 6;
+      ctx.strokeStyle = 'gray';
+      ctx.lineWidth = 5;
 
       // Connect to the circle on the right
       ctx.beginPath();
@@ -48,17 +50,20 @@ export const drawCircles = (
   // Draw circles
   for (let row = startRow; row < endRow; row++) {
     for (let col = startCol; col < endCol; col++) {
-      const x = col * horizontalSpacing + (row % 2 === 0 ? 0 : horizontalSpacing / 2);
+      const x = col * horizontalSpacing + (row * horizontalSpacing / 2);
       const y = row * verticalSpacing;
+
+      // Compute note name based on the tonnetz layout
+      let noteIndex = (col + row * 4) % 12;
+      if (noteIndex < 0) noteIndex += 12;
+      const noteName = tonnetzNotes[noteIndex];
 
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = `hsl(${Math.abs((x + y) * 10) % 360}, 70%, 50%)`;
+      ctx.fillStyle = noteName === 'C' ? '#FF6B6B' : 'gray';
       ctx.fill();
 
       // Add note name
-      const noteIndex = ((row % 4) * 3 + col) % 12;
-      const noteName = tonnetzNotes[noteIndex];
       ctx.fillStyle = 'black';
       ctx.font = '16px Arial';
       ctx.textAlign = 'center';

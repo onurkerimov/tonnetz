@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { drawCircles } from '../helpers/drawCircles';
+import { drawCircles } from './drawCircles';
 
 export const useCanvasSetup = (
   canvasRef: React.RefObject<HTMLCanvasElement>,
@@ -16,6 +16,17 @@ export const useCanvasSetup = (
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+
+      ctx.scale(dpr, dpr);
+
       drawCircles(ctx, canvas, scale, offset);
     };
 

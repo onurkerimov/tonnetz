@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { useCanvasSetup } from './hooks/useCanvasSetup';
-import { useZoomAndPan } from './hooks/useZoomAndPan';
+import { useCanvasSetup } from './utils/useCanvasSetup';
+import { useZoomAndPan } from './utils/useZoomAndPan';
 
 const ToneCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

@@ -13,7 +13,7 @@ export const useZoomAndPan = () => {
     const newScale = scale * (1 - e.deltaY * 0.001);
     const scaleFactor = newScale / scale;
 
-    setScale(Math.max(0.1, Math.min(newScale, 10)));
+    setScale(Math.max(0.5, Math.min(newScale, 10)));
     setOffset({
       x: mouseX - (mouseX - offset.x) * scaleFactor,
       y: mouseY - (mouseY - offset.y) * scaleFactor,
