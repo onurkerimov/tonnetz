@@ -17,15 +17,15 @@ export const useCanvasSetup = (
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
+      // const dpr = window.devicePixelRatio || 1;
+      // const rect = canvas.getBoundingClientRect();
 
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+      // canvas.width = rect.width * dpr;
+      // canvas.height = rect.height * dpr;
+      // canvas.style.width = `${rect.width}px`;
+      // canvas.style.height = `${rect.height}px`;
 
-      ctx.scale(dpr, dpr);
+      // ctx.scale(dpr, dpr);
 
       drawCircles(ctx, canvas, scale, offset);
     };

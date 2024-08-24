@@ -16,11 +16,12 @@ export const drawCircles = (
   const radius = 20;
   const horizontalSpacing = 2 * radius * Math.sqrt(3);
   const verticalSpacing = radius * 3;
+  const extraSpacing = 2;
 
-  const startCol = Math.floor(-offset.x / (scale * horizontalSpacing)) - 1;
-  const endCol = startCol + Math.ceil(canvas.width / (scale * horizontalSpacing)) + 2;
-  const startRow = Math.floor(-offset.y / (scale * verticalSpacing)) - 1;
-  const endRow = startRow + Math.ceil(canvas.height / (scale * verticalSpacing)) + 2;
+  const startCol = Math.floor(-offset.x / (scale * horizontalSpacing)) - extraSpacing;
+  const endCol = startCol + Math.ceil(canvas.width / (scale * horizontalSpacing)) + extraSpacing * 2;
+  const startRow = Math.floor(-offset.y / (scale * verticalSpacing)) - extraSpacing;
+  const endRow = startRow + Math.ceil(canvas.height / (scale * verticalSpacing)) + extraSpacing * 2;
 
   // Draw lines first
   for (let row = startRow; row < endRow; row++) {
@@ -50,7 +51,7 @@ export const drawCircles = (
   // Draw circles
   for (let row = startRow; row < endRow; row++) {
     for (let col = startCol; col < endCol; col++) {
-      const x = col * horizontalSpacing + (row * horizontalSpacing / 2);
+      const x = col * horizontalSpacing + ((row%48) * horizontalSpacing / 2);
       const y = row * verticalSpacing;
 
       // Compute note name based on the tonnetz layout

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+document.body.style.overflow = 'hidden';
+
 export const useZoomAndPan = () => {
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
