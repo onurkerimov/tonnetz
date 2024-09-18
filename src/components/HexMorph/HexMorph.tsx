@@ -18,7 +18,7 @@ const blackNotes = '2356790SDGHJL'.split('')
 const disabledNotes = '148AFKOLP'.split('')
 const tempNotes = '90-'.split('')
 
-const PolygonMorph = () => {
+const HexMorph = () => {
   const [isRectangle, setIsRectangle] = useState(true);
   const [currentPoints, setCurrentPoints] = useState(isRectangle ? rectanglePoints : hexagonPoints);
   const radius = isRectangle ? 50 : 0;
@@ -62,4 +62,4 @@ const PolygonMorph = () => {
   )
 }
 
-export default PolygonMorph;
+export default HexMorph;

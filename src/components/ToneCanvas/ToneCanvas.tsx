@@ -14,6 +14,7 @@ const ToneCanvas: React.FC = () => {
     handleMouseUp, 
     isDragging 
   } = useZoomAndPan();
+  useCanvasSetup(canvasRef, scale, offset, activeNotes);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -39,18 +40,19 @@ const ToneCanvas: React.FC = () => {
     };
   }, [activeNotes]);
 
-  useCanvasSetup(canvasRef, scale, offset, activeNotes);
 
   return (
-    <canvas
-      ref={canvasRef}
-      onWheel={handleWheel}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-    />
+    <div style={{width: '100vw', height: '100vh'}}>
+      <canvas
+        ref={canvasRef}
+        onWheel={handleWheel}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      />
+    </div>
   );
 };
 
