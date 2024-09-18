@@ -10,12 +10,18 @@ export const useZoomAndPan = () => {
 
   const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
     e.preventDefault();
+    const newScale = scale * (1 - e.deltaY * 0.001);
+
+    // Check if the new scale is within the allowed range
+    if (newScale < 0.5 || newScale > 10) {
+      return; // Do nothing if max zoom in or out is achieved
+    }
+
     const mouseX = e.clientX - e.currentTarget.offsetLeft;
     const mouseY = e.clientY - e.currentTarget.offsetTop;
-    const newScale = scale * (1 - e.deltaY * 0.001);
     const scaleFactor = newScale / scale;
 
-    setScale(Math.max(0.5, Math.min(newScale, 10)));
+    setScale(newScale);
     setOffset({
       x: mouseX - (mouseX - offset.x) * scaleFactor,
       y: mouseY - (mouseY - offset.y) * scaleFactor,
