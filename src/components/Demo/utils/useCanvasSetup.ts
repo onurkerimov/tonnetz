@@ -5,6 +5,7 @@ export const useCanvasSetup = (
   canvasRef: React.RefObject<HTMLCanvasElement>,
   scale: number,
   offset: { x: number; y: number },
+  activeNotes: number[] // Add this parameter
 ) => {
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,7 +28,7 @@ export const useCanvasSetup = (
 
       // ctx.scale(dpr, dpr);
 
-      drawCircles(ctx, canvas, scale, offset);
+      drawCircles(ctx, canvas, scale, offset, activeNotes); // Pass activeNotes here
     };
 
     handleResize();
@@ -36,5 +37,5 @@ export const useCanvasSetup = (
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [canvasRef, scale, offset]);
+  }, [canvasRef, scale, offset, activeNotes]); // Add activeNotes to the dependency array
 };

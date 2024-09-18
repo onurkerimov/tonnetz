@@ -1,0 +1,43 @@
+.container {
+  /* background-color: #f0f0f0; */
+  padding: 20px;
+  display: flex;
+  min-height: 250px;
+  cursor: pointer;
+}
+
+.container polygon {
+  stroke-width: 0px;
+}
+
+.container text {
+  fill: black;
+  font-family: Inter, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container svg {
+  transition: opacity 280ms, fill 280ms, stroke 280ms;
+  & text {
+    transition: fill 180ms;
+  }
+}
+
+.container svg.blackNote {
+    fill: rgb(35, 35, 35);
+    stroke: rgba(255,255,255, 0.4);
+    & text {
+      fill: rgba(255,255,255, 0.6);
+    }
+}
+
+.emptyNote {
+  opacity: 0.15;
+}
+
+.container svg.tempNote {
+  fill: rgb(164, 66, 186);
+  stroke: rgba(255,255,255, 0.4);
+  & text {
+    fill: rgba(255,255,255, 0.6);
+  }
+}

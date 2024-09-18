@@ -6,7 +6,8 @@ export const drawCircles = (
   ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
   scale: number,
-  offset: { x: number; y: number }
+  offset: { x: number; y: number },
+  activeNotes: number[] // Add this parameter
 ) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
@@ -61,8 +62,15 @@ export const drawCircles = (
 
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = noteName === 'C' ? '#FF6B6B' : 'gray';
-      ctx.fill();
+      
+      // Check if the current note is active
+      if (activeNotes.map(note => note % 12).includes(noteIndex)) {
+        ctx.fillStyle = 'rgba(255, 255, 0, 0.5)'; // Highlight color (yellow with 50% opacity)
+        ctx.fill();
+      } else {
+        ctx.fillStyle = noteName === 'C' ? '#FF6B6B' : 'gray';
+        ctx.fill();
+      }
 
       // Add note name
       ctx.fillStyle = 'black';
