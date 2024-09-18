@@ -1,4 +1,5 @@
-const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
+// const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
+const tonnetzNotes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
 export const drawCircles = (
   ctx: CanvasRenderingContext2D,
@@ -15,12 +16,13 @@ export const drawCircles = (
   const radius = 20;
   const horizontalSpacing = 2 * radius * Math.sqrt(3);
   const verticalSpacing = radius * 3;
-  const extraSpacing = 2;
+  const extraSpacing = 1;
+  const extraSpacingEnd = 2;
 
   const startCol = Math.floor(-offset.x / (scale * horizontalSpacing)) - extraSpacing;
-  const endCol = startCol + Math.ceil(canvas.width / (scale * horizontalSpacing)) + extraSpacing * 2;
+  const endCol = startCol + Math.ceil(canvas.width / (scale * horizontalSpacing)) + extraSpacingEnd + 1;
   const startRow = Math.floor(-offset.y / (scale * verticalSpacing)) - extraSpacing;
-  const endRow = startRow + Math.ceil(canvas.height / (scale * verticalSpacing)) + extraSpacing * 2;
+  const endRow = startRow + Math.ceil(canvas.height / (scale * verticalSpacing)) + extraSpacingEnd + 1;
 
   // Draw lines first
   for (let row = startRow; row < endRow; row++) {
@@ -47,14 +49,17 @@ export const drawCircles = (
     }
   }
 
+  const rowFactor = 3;
+  const colFactor = 4;
+
   // Draw circles
   for (let row = startRow; row < endRow; row++) {
     for (let col = startCol; col < endCol; col++) {
-      const x = col * horizontalSpacing + ((row%48) * horizontalSpacing / 2);
+      const x = col * horizontalSpacing + ((row%2) * horizontalSpacing / 2);
       const y = row * verticalSpacing;
 
       // Compute note name based on the tonnetz layout
-      let noteIndex = (col + row * 4) % 12;
+      let noteIndex = ((col + (row % 2 ? 1 : 0)) * colFactor - row * rowFactor) % 12;
       if (noteIndex < 0) noteIndex += 12;
       const noteName = tonnetzNotes[noteIndex];
 

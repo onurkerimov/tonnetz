@@ -3,18 +3,27 @@ import { useCanvasSetup } from './utils/useCanvasSetup';
 import { useZoomAndPan } from './utils/useZoomAndPan';
 
 const ToneCanvas: React.FC = () => {
+  const dpr = window.devicePixelRatio
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeNotes, setActiveNotes] = useState<number[]>([]);
   const { 
     scale, 
     offset, 
-    handleWheel, 
+    handleWheel,
     handleMouseDown, 
     handleMouseMove, 
     handleMouseUp, 
     isDragging 
-  } = useZoomAndPan();
-  useCanvasSetup(canvasRef, scale, offset, activeNotes);
+  } = useZoomAndPan({ dpr });
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if(!canvas) return
+    canvas.addEventListener('wheel', handleWheel);
+    return () => canvas.removeEventListener('wheel', handleWheel);
+  }, [handleWheel])
+
+
+  useCanvasSetup({canvasRef, scale, offset, activeNotes});
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -45,7 +54,6 @@ const ToneCanvas: React.FC = () => {
     <div style={{width: '100vw', height: '100vh'}}>
       <canvas
         ref={canvasRef}
-        onWheel={handleWheel}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}

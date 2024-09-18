@@ -2,11 +2,14 @@ import { useEffect } from 'react';
 import { drawCircles } from './drawCircles';
 
 export const useCanvasSetup = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-  scale: number,
-  offset: { x: number; y: number },
-  activeNotes: number[] // Add this parameter
+  props: {
+    canvasRef: React.RefObject<HTMLCanvasElement>,
+    scale: number,
+    offset: { x: number; y: number },
+    activeNotes: number[] // Add this parameter
+  }
 ) => {
+  const { canvasRef, scale, offset, activeNotes } = props
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -22,8 +25,6 @@ export const useCanvasSetup = (
       canvas.height = rect.height * dpr;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
-
-      ctx.scale(dpr, dpr);
 
       drawCircles(ctx, canvas, scale, offset, activeNotes); // Pass activeNotes here
     };
