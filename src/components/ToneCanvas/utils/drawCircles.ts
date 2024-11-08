@@ -1,13 +1,18 @@
 // const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
 const tonnetzNotes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
+const COLOR = 'rgba(125, 125, 125, 1)'
+const getColor = (progress: number) => {
+  return `rgba(125, 125, 125, ${progress})`
+}
+
 export const drawCircles = (
   ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
   scale: number,
   offset: { x: number; y: number },
   activeNotes: number[],
-  shiftInterpolation: number = 0.5 // New parameter for interpolating between x and y shifts
+  shiftInterpolation: number // New parameter for interpolating between x and y shifts
 ) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
@@ -46,30 +51,45 @@ export const drawCircles = (
       const right = getCirclePosition(row, col + 1);
       const bottomRight = getCirclePosition(row + 1, col);
       const bottomLeft = getCirclePosition(row + 1, col + (row % 2 ? 1 : -1));
+      const bottomLeft2 = getCirclePosition(row + 1, col + (row % 2 ? -1 : 1));
 
-      ctx.strokeStyle = 'red';
+      ctx.strokeStyle = COLOR;
+      ctx.lineWidth = 4;
       ctx.beginPath();
       ctx.moveTo(current.x, current.y);
       ctx.lineTo(right.x, right.y);
       ctx.stroke();
 
-      ctx.strokeStyle = 'green';
+      ctx.strokeStyle = COLOR;
       ctx.beginPath();
       ctx.moveTo(current.x, current.y);
       ctx.lineTo(bottomRight.x, bottomRight.y);
       ctx.stroke();
 
-      if(col % 2) ctx.strokeStyle = 'blue';
-      else ctx.strokeStyle = 'black'
-      ctx.beginPath();
-      ctx.moveTo(current.x, current.y);
-      ctx.lineTo(bottomLeft.x, bottomLeft.y);
-      ctx.stroke();
+      if(col % 2) {
+        ctx.strokeStyle = COLOR;
+        ctx.beginPath();
+        ctx.moveTo(current.x, current.y);
+        ctx.lineTo(bottomLeft.x, bottomLeft.y);
+        ctx.stroke();
+
+        ctx.strokeStyle = getColor(shiftInterpolation) 
+        ctx.beginPath();
+        ctx.moveTo(current.x, current.y);
+        ctx.lineTo(bottomLeft2.x, bottomLeft2.y);
+        ctx.stroke();
+      } else {
+        ctx.strokeStyle = getColor(1 - shiftInterpolation) 
+        ctx.beginPath();
+        ctx.moveTo(current.x, current.y);
+        ctx.lineTo(bottomLeft.x, bottomLeft.y);
+        ctx.stroke();
+      }
     }
   }
 
-  const rowFactor = -7;
-  const colFactor = 4;
+  const rowFactor = 1// -7;
+  const colFactor = 1//4;
 
   // Draw circles
   for (let row = startRow; row < endRow; row++) {
@@ -82,14 +102,14 @@ export const drawCircles = (
       const noteName = tonnetzNotes[noteIndex];
 
       ctx.beginPath();
-      ctx.arc(x, y, radius * 0.5, 0, Math.PI * 2);
+      ctx.arc(x, y, radius * 0.8, 0, Math.PI * 2);
       
       // Check if the current note is active
       if (activeNotes.map(note => note % 12).includes(noteIndex)) {
         ctx.fillStyle = 'rgba(255, 255, 0, 0.5)'; // Highlight color (yellow with 50% opacity)
         ctx.fill();
       } else {
-        ctx.fillStyle = isAnchorNote(noteName) ? '#FF6B6B' : 'gray';
+        ctx.fillStyle = isAnchorNote(noteName) ? '#FF6B6B' : COLOR;
         ctx.fill();
       }
 

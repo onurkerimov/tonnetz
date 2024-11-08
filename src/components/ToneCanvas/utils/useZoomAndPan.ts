@@ -17,11 +17,11 @@ export const useZoomAndPan = ({ dpr } : {dpr: number}) => {
       return; // Do nothing if max zoom in or out is achieved
     }
 
+    const scaleFactor = newScale / scale;
+    setScale(newScale);
+    
     const mouseX = dpr * (e.clientX - (e.currentTarget as HTMLElement).offsetLeft);
     const mouseY = dpr * (e.clientY - (e.currentTarget as HTMLElement).offsetTop);
-    const scaleFactor = newScale / scale;
-
-    setScale(newScale);
     setOffset({
       x: mouseX - (mouseX - offset.x) * scaleFactor,
       y: mouseY - (mouseY - offset.y) * scaleFactor,
