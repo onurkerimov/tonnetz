@@ -3,7 +3,7 @@ import { useState } from 'react';
 document.body.style.overflow = 'hidden';
 
 export const useZoomAndPan = ({ dpr } : {dpr: number}) => {
-  const [scale, setScale] = useState(1);
+  const [scale, setScale] = useState(2);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
@@ -17,8 +17,8 @@ export const useZoomAndPan = ({ dpr } : {dpr: number}) => {
       return; // Do nothing if max zoom in or out is achieved
     }
 
-    const mouseX = dpr * (e.clientX - e.currentTarget.offsetLeft);
-    const mouseY = dpr * (e.clientY - e.currentTarget.offsetTop);
+    const mouseX = dpr * (e.clientX - (e.currentTarget as HTMLElement).offsetLeft);
+    const mouseY = dpr * (e.clientY - (e.currentTarget as HTMLElement).offsetTop);
     const scaleFactor = newScale / scale;
 
     setScale(newScale);

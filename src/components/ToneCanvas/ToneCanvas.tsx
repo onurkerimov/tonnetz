@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useCanvasSetup } from './utils/useCanvasSetup';
 import { useZoomAndPan } from './utils/useZoomAndPan';
 
-const ToneCanvas: React.FC = () => {
+const ToneCanvas = (props: { progress: number, onClick: () => void }) => {
+  const { progress, onClick } = props
   const dpr = window.devicePixelRatio
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeNotes, setActiveNotes] = useState<number[]>([]);
@@ -23,7 +24,7 @@ const ToneCanvas: React.FC = () => {
   }, [handleWheel])
 
 
-  useCanvasSetup({canvasRef, scale, offset, activeNotes});
+  useCanvasSetup({ canvasRef, scale, offset, activeNotes, progress });
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -53,6 +54,7 @@ const ToneCanvas: React.FC = () => {
   return (
     <div style={{width: '100vw', height: '100vh'}}>
       <canvas
+        onClick={onClick}
         ref={canvasRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
