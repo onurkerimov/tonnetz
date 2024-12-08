@@ -13,7 +13,6 @@ export const useCanvasSetup = (
 ) => {
   const { canvasRef, scale, offset, activeNotes, progress } = props
 
-
   const [lateState, setLateState] = useState(progress)
   const prevStateRef = useRef(progress)
   useEffect(() => {
