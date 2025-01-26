@@ -40,3 +40,16 @@
     fill: rgba(255,255,255, 0.6);
   }
 }
+
+.container svg.active {
+  fill: rgb(66, 135, 245);
+  stroke: rgba(255,255,255, 0.4);
+  opacity: 1;
+  & text {
+    fill: rgba(255,255,255, 0.9);
+  }
+}
+
+.container svg.blackNote.active {
+  fill: rgb(40, 90, 180);
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HexMorph from '../HexMorph/HexMorph';
 import PianoKeys from '../PianoKeys/PianoKeys';
 import ToneCanvas from '../ToneCanvas/ToneCanvas';
@@ -15,6 +15,27 @@ const MusicInterface = () => {
   const [startNote, setStartNote] = useState(9);
   const [isRectangle, setIsRectangle] = useState(false);
   const [scale, setScale] = useState(2);
+  const [activeKeys, setActiveKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.key.toUpperCase();
+      setActiveKeys(prev => prev.includes(key) ? prev : [...prev, key]);
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      const key = e.key.toUpperCase();
+      setActiveKeys(prev => prev.filter(k => k !== key));
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -50,7 +71,7 @@ const MusicInterface = () => {
       <div className={styles.overlay}>
         <div className={styles.controls}>
           <div className={styles.hexMorphSection}>
-            <HexMorph isRectangle={isRectangle} />
+            <HexMorph isRectangle={isRectangle} activeKeys={activeKeys} />
           </div>
           <div className={styles.pianoSection}>
             <PianoKeys 

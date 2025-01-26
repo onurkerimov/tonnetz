@@ -20,9 +20,13 @@ const tempNotes = '90-'.split('')
 
 interface HexMorphProps {
   isRectangle?: boolean;
+  activeKeys?: string[];
 }
 
-const HexMorph: React.FC<HexMorphProps> = ({ isRectangle: externalIsRectangle = false }) => {
+const HexMorph: React.FC<HexMorphProps> = ({ 
+  isRectangle: externalIsRectangle = false,
+  activeKeys = []
+}) => {
   const [isRectangleState, setIsRectangleState] = useState(externalIsRectangle);
   const [currentPoints, setCurrentPoints] = useState(isRectangleState ? rectanglePoints : hexagonPoints);
   const radius = isRectangleState ? 50 : 0;
@@ -49,6 +53,9 @@ const HexMorph: React.FC<HexMorphProps> = ({ isRectangle: externalIsRectangle = 
         if(blackNotes.includes(item)) className = styles.blackNote
         if(disabledNotes.includes(item)) className = styles.emptyNote
         if(tempNotes.includes(item)) className = styles.tempNote
+      }
+      if(activeKeys.includes(item)) {
+        className = `${className} ${styles.active}`
       }
       return <Shape key={item} points={currentPoints} title={item} radius={radius} className={className} />
     })
