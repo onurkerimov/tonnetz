@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+# Tonnetz: Interactive Music Theory Visualization (Work in Progress)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive web application that visualizes musical relationships through the lens of Tonnetz (tone-network) theory, built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is an ongoing exploration of the Tonnetz, a geometric representation of pitch relationships that was first described by Leonhard Euler and later expanded by Hugo Riemann. The Tonnetz represents pitch classes in a two-dimensional lattice, where:
 
-## Expanding the ESLint configuration
+- Horizontal steps represent perfect fifth intervals
+- Diagonal steps represent major or minor third intervals
+- Triangular regions represent major and minor triads
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- 🎹 Interactive Piano Interface
+- 🔷 Dynamic Hexagonal/Rectangular Tonnetz Visualization
+- 🎵 Customizable Note Display
+- ⌨️ Keyboard Input Support
+- 🎨 Animated Tone Canvas
+- 📐 Adjustable Scale and Layout
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technical Stack
+
+- React
+- TypeScript
+- Vite
+- CSS Modules
+- Storybook
+
+## Development
+
+This is an active work in progress. Current focus areas include:
+
+- Expanding musical theory visualizations
+- Enhancing interactive features
+- Improving performance optimizations
+- Adding more educational components
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run Storybook
+npm run storybook
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Contributing
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+As this is an ongoing project, contributions are welcome! Feel free to open issues or submit pull requests.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## License
+
+[License Type] - See LICENSE file for details
