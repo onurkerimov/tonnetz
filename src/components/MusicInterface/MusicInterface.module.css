@@ -20,7 +20,7 @@
   right: 0;
   height: 100%;
   width: 300px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.9);
   z-index: 2;
   border-left: 1px solid #e5e7eb;
   padding: 20px;
@@ -51,18 +51,23 @@
 }
 
 .hexMorphSection {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
   padding: 20px;
   flex: 0 0 auto;
+  height: 240px;
+  border: 1px solid #e5e7eb;
 }
 
 .pianoSection {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
   padding: 20px;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
+  zoom: 0.8;
 }
 
 .controlRow {
@@ -73,7 +78,52 @@
 
 .controlLabel {
   font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  min-width: 80px;
+  flex: 1;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.slider {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e5e7eb;
+  outline: none;
+  border-radius: 2px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #333;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.input {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 14px;
+  max-width: 80px;
+}
+
+.select {
+  flex: 1;
+  padding: 4px 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  max-width: 120px;
 } 

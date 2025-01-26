@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // Function to interpolate between two points
-const interpolatePoints = (fromPoints, toPoints, t) => {
+const interpolatePoints = (fromPoints: number[][], toPoints: number[][], t: number) => {
   return fromPoints.map((fromPoint, i) => {
     const [x1, y1] = fromPoint;
     const [x2, y2] = toPoints[i];
@@ -11,11 +11,27 @@ const interpolatePoints = (fromPoints, toPoints, t) => {
   });
 };
 
-// Function to animate the morph
-const morphShapes = ({fromPoints, toPoints, fromRadius = 0, toRadius = 0, setCurrentPath, duration = 200}) => {
-  let startTime;
+interface MorphShapesProps {
+  fromPoints: number[][];
+  toPoints: number[][];
+  fromRadius?: number;
+  toRadius?: number;
+  setCurrentPath: (path: string) => void;
+  duration?: number;
+}
 
-  const animate = (timestamp) => {
+// Function to animate the morph
+const morphShapes = ({
+  fromPoints,
+  toPoints,
+  fromRadius = 0,
+  toRadius = 0,
+  setCurrentPath,
+  duration = 200
+}: MorphShapesProps) => {
+  let startTime: number;
+
+  const animate = (timestamp: number) => {
     if (!startTime) startTime = timestamp;
     const elapsed = timestamp - startTime;
     const t = Math.min(elapsed / duration, 1); // Normalize time between 0 and 1
@@ -36,7 +52,15 @@ const morphShapes = ({fromPoints, toPoints, fromRadius = 0, toRadius = 0, setCur
   requestAnimationFrame(animate);
 };
 
-const Shape = ({ points, fill, radius, title, className }) => {
+interface ShapeProps {
+  points: number[][];
+  fill?: string;
+  radius: number;
+  title: string;
+  className?: string;
+}
+
+const Shape: React.FC<ShapeProps> = ({ points, fill = '#ccc', radius, title, className = '' }) => {
   const [currentPath, setCurrentPath] = useState(generateSVGPath(points, radius));
   const prevPointsRef = useRef(points);
   const prevRadiusRef = useRef(radius);
@@ -46,9 +70,7 @@ const Shape = ({ points, fill, radius, title, className }) => {
       morphShapes({
         fromPoints: prevPointsRef.current, 
         toPoints: points, 
-        
         setCurrentPath, 
-        
         fromRadius: prevRadiusRef.current, 
         toRadius: radius,
         duration: 250
@@ -59,14 +81,14 @@ const Shape = ({ points, fill, radius, title, className }) => {
   }, [points, radius]);
 
   return (
-    <svg width="70" height="85" viewBox="-10 -20 220 195" xmlns="http://www.w3.org/2000/svg" className={className}    fill={fill || '#ccc'}
+    <svg width="70" height="85" viewBox="-10 -20 220 195" xmlns="http://www.w3.org/2000/svg" className={className}    fill={fill}
     stroke='white'>
       <path
         d={currentPath} // Use the updated path
         strokeWidth={8}
         style={{ cursor: 'pointer' }}
       />
-      <text x="47%" y="44%" text-anchor="middle" dominant-baseline="middle" font-size="72" style={{"userSelect": "none"}}>
+      <text x="47%" y="44%" textAnchor="middle" dominantBaseline="middle" fontSize="72" style={{"userSelect": "none"}}>
         {title}
       </text>
     </svg>
@@ -75,7 +97,7 @@ const Shape = ({ points, fill, radius, title, className }) => {
 
 export default Shape;
 
-function generateSVGPath(points, cornerRadius = 20) {
+function generateSVGPath(points: number[][], cornerRadius = 20) {
   if (!points || points.length < 2) return '';
 
   let path = ``; // Move to the first point

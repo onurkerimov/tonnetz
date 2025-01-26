@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Shape from './Shape';
 import styles from './HexMorph.module.css';
 
@@ -18,33 +18,44 @@ const blackNotes = '2356790SDGHJL'.split('')
 const disabledNotes = '148AFKOLP'.split('')
 const tempNotes = '90-'.split('')
 
-const HexMorph = () => {
-  const [isRectangle, setIsRectangle] = useState(false);
-  const [currentPoints, setCurrentPoints] = useState(isRectangle ? rectanglePoints : hexagonPoints);
-  const radius = isRectangle ? 50 : 0;
+interface HexMorphProps {
+  isRectangle?: boolean;
+}
+
+const HexMorph: React.FC<HexMorphProps> = ({ isRectangle: externalIsRectangle = false }) => {
+  const [isRectangleState, setIsRectangleState] = useState(externalIsRectangle);
+  const [currentPoints, setCurrentPoints] = useState(isRectangleState ? rectanglePoints : hexagonPoints);
+  const radius = isRectangleState ? 50 : 0;
+
+  useEffect(() => {
+    setIsRectangleState(externalIsRectangle);
+  }, [externalIsRectangle]);
+
+  useEffect(() => {
+    setCurrentPoints(isRectangleState ? rectanglePoints : hexagonPoints);
+  }, [isRectangleState]);
 
   // Handle click to trigger the morphing animation
   const handleClick = () => {
-    setCurrentPoints(!isRectangle ? rectanglePoints : hexagonPoints);
-    setIsRectangle(!isRectangle);
+    if (externalIsRectangle === undefined) {
+      setIsRectangleState(!isRectangleState);
+    }
   };
 
-  const shapes = (arr) => {
+  const shapes = (arr: string[]) => {
     return arr.map((item) => {
       let className = ''
-      if(isRectangle) {
+      if(isRectangleState) {
         if(blackNotes.includes(item)) className = styles.blackNote
         if(disabledNotes.includes(item)) className = styles.emptyNote
         if(tempNotes.includes(item)) className = styles.tempNote
       }
-      return <Shape points={currentPoints} title={item} radius={radius} className={className} />
+      return <Shape key={item} points={currentPoints} title={item} radius={radius} className={className} />
     })
   }
 
   return (
     <div onClick={handleClick} style={{zoom: 0.75}}>
-        {/* <Shape radius={radius} points={currentPoints} title="1" fill="purple" isRectangle={isRectangle} /> */}
-
       <div className={styles.container}>
         {shapes(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-'])}
       </div>
@@ -57,7 +68,6 @@ const HexMorph = () => {
       <div className={styles.container} style={{ marginTop: -228, marginLeft: 105}}>
         {shapes(['Z', 'X', 'C', 'V', 'B', 'N', 'M', ','])}
       </div>
-
     </div>
   )
 }

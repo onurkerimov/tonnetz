@@ -1,14 +1,13 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import styles from './PianoKeys.module.css';
 import PianoKeysContainer from './PianoKeysContainer';
-import PianoKeyboardControls from './PianoKeyboardControls';
 import ChordButtons from './ChordButtons';
 import usePianoKeyboard from './usePianoKeyboard';
 
-interface Options {
-  showNoteNames: boolean;
-  noteCount: number;
-  startNote: number;
+interface PianoKeysProps {
+  showNoteNames?: boolean;
+  noteCount?: number;
+  startNote?: number;
 }
 
 const defaultOptions = {
@@ -17,8 +16,11 @@ const defaultOptions = {
   startNote: 9,
 }
 
-const PianoKeys: React.FC = () => {
-  const [options, setOptions] = useState<Options>(defaultOptions);
+const PianoKeys: React.FC<PianoKeysProps> = ({ 
+  showNoteNames = defaultOptions.showNoteNames,
+  noteCount = defaultOptions.noteCount,
+  startNote = defaultOptions.startNote,
+}) => {
   const [activeKeyIndices, setActiveKeyIndices] = useState<number[]>([]);
   const [activeChordKeyIndices, setActiveChordKeyIndices] = useState<number[]>([]);
 
@@ -29,8 +31,8 @@ const PianoKeys: React.FC = () => {
     handleMouseUp,
     handleMouseLeave,
   } = usePianoKeyboard({ 
-    noteCount: options.noteCount, 
-    startNote: options.startNote, 
+    noteCount, 
+    startNote, 
     setActiveKeyIndices 
   });
 
@@ -40,19 +42,15 @@ const PianoKeys: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <PianoKeyboardControls
-        options={options}
-        setOptions={setOptions}
-      />
       <ChordButtons 
         setActiveKeyIndices={setActiveChordKeyIndices} 
-        startNote={options.startNote} 
-        noteCount={options.noteCount} 
+        startNote={startNote} 
+        noteCount={noteCount} 
       />
       <PianoKeysContainer
         notes={notes}
         indices={indices}
-        showNoteNames={options.showNoteNames}
+        showNoteNames={showNoteNames}
         handleMouseUp={handleMouseUp}
         handleMouseLeave={handleMouseLeave}
         handleMouseEnter={handleMouseEnter}
