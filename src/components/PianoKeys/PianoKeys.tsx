@@ -42,11 +42,11 @@ const PianoKeys: React.FC<PianoKeysProps> = ({
 
   return (
     <div className={styles.container}>
-      <ChordButtons 
+      {/* <ChordButtons 
         setActiveKeyIndices={setActiveChordKeyIndices} 
         startNote={startNote} 
         noteCount={noteCount} 
-      />
+      /> */}
       <PianoKeysContainer
         notes={notes}
         indices={indices}

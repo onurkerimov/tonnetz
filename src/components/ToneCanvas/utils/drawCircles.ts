@@ -1,5 +1,5 @@
 // const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
-const tonnetzNotes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const tonnetzNotes = ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'F'];
 
 const COLOR = 'rgba(125, 125, 125, 1)'
 const getColor = (progress: number) => {
@@ -106,10 +106,10 @@ export const drawCircles = (
       
       // Check if the current note is active
       if (activeNotes.map(note => note % 12).includes(noteIndex)) {
-        ctx.fillStyle = 'rgba(255, 255, 0, 0.5)'; // Highlight color (yellow with 50% opacity)
+        ctx.fillStyle = 'rgba(212, 212, 212, 1)'; // Highlight color (yellow with 50% opacity)
         ctx.fill();
       } else {
-        ctx.fillStyle = isAnchorNote(noteName) ? '#FF6B6B' : COLOR;
+        ctx.fillStyle = COLOR;
         ctx.fill();
       }
 
@@ -118,13 +118,13 @@ export const drawCircles = (
       ctx.font = '16px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(noteName.toString(), x, y);
+      ctx.fillText(noteName, x, y);
     }
   }
 
   ctx.restore();
 };
 
-const isAnchorNote = (noteId: number) => {
-  return false //[0, 2, 6 , 8].includes(noteId);
+const isAnchorNote = (noteIndex: number) => {
+  return [0, 7, 2, 9, 4, 11].includes(noteIndex); // C, G, D, A, E, F notes
 }

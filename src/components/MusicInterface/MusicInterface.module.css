@@ -24,6 +24,39 @@
   z-index: 2;
   border-left: 1px solid #e5e7eb;
   padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.rightPanelCollapsed {
+  transform: translateX(100%);
+}
+
+.sidebarToggle {
+  position: absolute;
+  top: 20px;
+  right: 300px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #e5e7eb;
+}
+
+.sidebarToggle:hover {
+  background: rgba(0, 0, 0, 0.95);
+  color: white;
+}
+
+.sidebarToggleCollapsed {
+  right: 0;
+  transform: translateX(-20px);
 }
 
 .controlsGroup {
@@ -39,6 +72,11 @@
   width: calc(100% - 300px); /* Adjust for right panel */
   z-index: 1;
   pointer-events: none;
+  transition: width 0.3s ease;
+}
+
+.overlayExpanded {
+  width: 100%;
 }
 
 .controls {

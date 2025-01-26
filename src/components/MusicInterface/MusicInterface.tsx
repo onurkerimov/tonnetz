@@ -7,6 +7,8 @@ import PianoControls from './components/PianoControls';
 import KeyboardLayoutControls from './components/KeyboardLayoutControls';
 import TitlePanel from './components/TitlePanel';
 import styles from './MusicInterface.module.css';
+import { cn } from '@/lib/utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const MusicInterface = () => {
   const [progress, setProgress] = useState(0);
@@ -16,6 +18,7 @@ const MusicInterface = () => {
   const [isRectangle, setIsRectangle] = useState(false);
   const [scale, setScale] = useState(2);
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -46,7 +49,14 @@ const MusicInterface = () => {
         />
       </div>
       <TitlePanel />
-      <div className={styles.rightPanel}>
+      <button
+        className={cn(styles.sidebarToggle, isSidebarCollapsed && styles.sidebarToggleCollapsed)}
+        onClick={() => setIsSidebarCollapsed(prev => !prev)}
+        aria-label={isSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+      >
+        {isSidebarCollapsed ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+      </button>
+      <div className={cn(styles.rightPanel, isSidebarCollapsed && styles.rightPanelCollapsed)}>
         <div className={styles.controlsGroup}>
           <CanvasControls
             progress={progress}
@@ -68,7 +78,7 @@ const MusicInterface = () => {
           />
         </div>
       </div>
-      <div className={styles.overlay}>
+      <div className={cn(styles.overlay, isSidebarCollapsed && styles.overlayExpanded)}>
         <div className={styles.controls}>
           <div className={styles.hexMorphSection}>
             <HexMorph isRectangle={isRectangle} activeKeys={activeKeys} />
