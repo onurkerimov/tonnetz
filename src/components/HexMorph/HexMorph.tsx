@@ -19,7 +19,7 @@ const disabledNotes = '148AFKOLP'.split('')
 const tempNotes = '90-'.split('')
 
 const HexMorph = () => {
-  const [isRectangle, setIsRectangle] = useState(true);
+  const [isRectangle, setIsRectangle] = useState(false);
   const [currentPoints, setCurrentPoints] = useState(isRectangle ? rectanglePoints : hexagonPoints);
   const radius = isRectangle ? 50 : 0;
 
