@@ -1,5 +1,8 @@
 # Tonnetz: Interactive Music Theory Visualization (Work in Progress)
 
+- Main interface: https://tonnetz-playground.vercel.app/iframe.html?args=&id=components-musicinterface--default&viewMode=story
+- Individual components: https://tonnetz-playground.vercel.app/
+
 An interactive web application that visualizes musical relationships through the lens of Tonnetz (tone-network) theory, built with React, TypeScript, and Vite.
 
 ## Overview
